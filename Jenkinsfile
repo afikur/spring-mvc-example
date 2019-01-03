@@ -1,10 +1,16 @@
 pipeline {
     agent any
-    tool name: 'Maven 3.6.0', type: 'maven'
+    stages {
+        stage ("Preparation") {
+            steps {
+                mvnHome = tool 'M3'
+            }
+        }
+    }
     stages {
         stage ("Compile") {
             steps {
-                sh "mvn clean compile"
+                sh "'${mvnHome}/bin/mvn' -Dmaven.test.failure.ignore clean package"
             }
         }
     }
