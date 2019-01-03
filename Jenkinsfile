@@ -1,13 +1,9 @@
 pipeline {
     agent any
-    def mvnHome
+    tools {
+        maven 'M3'
+    }
     stages {
-        stage ("Preparation") {
-            steps {
-                mvnHome = tool 'M3'
-            }
-        }
-
         stage ("Compile") {
             steps {
                 sh "'${mvnHome}/bin/mvn' -Dmaven.test.failure.ignore clean package"
